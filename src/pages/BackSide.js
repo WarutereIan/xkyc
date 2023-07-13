@@ -6,8 +6,8 @@ const BackSide = () => {
   const navigate = useNavigate();
 
   const videoConstraints = {
-    //facingMode: { exact: "environment" },
-    facingMode: "user",
+    facingMode: { exact: "environment" },
+    //facingMode: "user",
   };
 
   let imageSrc = null;
