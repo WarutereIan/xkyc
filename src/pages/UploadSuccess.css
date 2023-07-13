@@ -1,0 +1,38 @@
+.documents-are-uploaded {
+  position: absolute;
+  top: 421px;
+  left: 45px;
+  line-height: 26px;
+}
+.you-will-receive {
+  margin: 0;
+}
+.you-will-receive-container {
+  position: absolute;
+  top: 458px;
+  left: 54.37px;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #2f3a49;
+  text-align: center;
+  opacity: 0.8;
+}
+.icon-awesome-check-circle {
+  position: absolute;
+  top: 318.29px;
+  left: 156.65px;
+  width: 76.71px;
+  height: 76.71px;
+}
+.upload-success {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 844px;
+  overflow: hidden;
+  text-align: left;
+  font-size: 22px;
+  color: #333d4b;
+  font-family: Montserrat;
+}

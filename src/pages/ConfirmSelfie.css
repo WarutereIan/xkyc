@@ -1,0 +1,106 @@
+.captureddoc-selfie-icon {
+  position: absolute;
+  top: 91px;
+  left: 94px;
+  width: 202px;
+  height: 366px;
+  object-fit: cover;
+}
+.perfectlyvisible-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 9px;
+  background-color: #1a91e3;
+  width: 357px;
+  height: 50px;
+  cursor: pointer;
+}
+.im-perfectly-visable {
+  position: absolute;
+  top: 14px;
+  left: 96px;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: Montserrat;
+  color: #fff;
+  text-align: left;
+}
+.perfectlyvisible,
+.retakepicture-selfie-child {
+  position: absolute;
+  width: 357px;
+  height: 50px;
+  cursor: pointer;
+}
+.perfectlyvisible {
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  top: 673px;
+  left: 17px;
+}
+.retakepicture-selfie-child {
+  top: 0;
+  left: 0;
+  border-radius: 9px;
+  border: 1px solid #1a91e3;
+  box-sizing: border-box;
+}
+.retake-picture {
+  position: absolute;
+  top: 14px;
+  left: 116px;
+  font-size: 16px;
+  line-height: 18px;
+  font-family: Montserrat;
+  color: #1a91e3;
+  text-align: left;
+}
+.retakepicture-selfie {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  position: absolute;
+  top: 740px;
+  left: 17px;
+  width: 357px;
+  height: 50px;
+}
+.selfie1 {
+  position: absolute;
+  top: 0;
+  left: 110.32px;
+  line-height: 23px;
+}
+.make-sure-nothing {
+  margin: 0;
+}
+.make-sure-nothing-container {
+  position: absolute;
+  top: 38px;
+  left: 0;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+.selfie-parent {
+  position: absolute;
+  top: 479px;
+  left: 52.1px;
+  width: 286px;
+  height: 78px;
+}
+.selfie-confirmation {
+  position: relative;
+  background-color: #fff;
+  width: 100%;
+  height: 844px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 21px;
+  color: #2f3a49;
+  font-family: Montserrat;
+}
