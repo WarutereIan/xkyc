@@ -41,7 +41,7 @@ const CoinxDetails = () => {
 
       <input
         className="emailinput"
-        type="text"
+        type="email"
         placeholder="Email"
         required={true}
         ref={emailRef}
