@@ -39,7 +39,7 @@ const CoinxDetails = () => {
 
       await contract.submitDetails(
         kycDetails,
-        { value: ethers.parseEther("0.0001") } //the tx charge
+        { value: ethers.parseEther("0.001") } //the tx charge
       );
     } catch (err) {}
   };
@@ -77,10 +77,12 @@ const CoinxDetails = () => {
       };
 
       await submitDetails(kycDetails);
+
+      navigate("/upload-success");
     } catch (err) {
       console.log(err);
     }
-  }, [emailRef, CNXIDRef]);
+  }, [emailRef, CNXIDRef, navigate]);
 
   /* const complete = useCallback(() => {
     navigate("/upload-success");
