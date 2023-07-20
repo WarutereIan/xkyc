@@ -4,6 +4,16 @@ import {
   useNavigationType,
   useLocation,
 } from "react-router-dom";
+
+import {
+  EthereumClient,
+  w3mConnectors,
+  w3mProvider,
+} from "@web3modal/ethereum";
+import { Web3Modal } from "@web3modal/react";
+import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import { arbitrum, mainnet, polygon, sepolia } from "wagmi/chains";
+
 import Home from "./pages/Home";
 import DocumentSelectionPage from "./pages/DocumentSelectionPage";
 import TakeSelfie from "./pages/TakeSelfie";
@@ -17,6 +27,21 @@ import CoinxDetails from "./pages/CoinxDetails";
 import { useEffect } from "react";
 
 function App() {
+  const chains = [arbitrum, mainnet, polygon, sepolia];
+  const projectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID;
+  //const { open } = useWeb3Modal();
+
+  const { publicClient } = configureChains(chains, [
+    w3mProvider({ projectId }),
+  ]);
+  const wagmiConfig = createConfig({
+    autoConnect: true,
+    connectors: w3mConnectors({ projectId, chains }),
+    publicClient,
+  });
+
+  const ethereumClient = new EthereumClient(wagmiConfig, chains);
+
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
@@ -88,25 +113,35 @@ function App() {
     }
   }, [pathname]);
 
+  /* useEffect(() => {
+    open();
+  }, []); */
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route
-        path="/document-selection-page"
-        element={<DocumentSelectionPage />}
-      />
-      <Route path="/take-selfie" element={<TakeSelfie />} />
-      <Route path="/front-side" element={<FrontSide />} />
-      <Route path="/selfie-confirmation" element={<SelfieConfirmation />} />
-      <Route path="/back-side" element={<BackSide />} />
-      <Route path="/photo-confirmation" element={<PhotoConfirmation />} />
-      <Route
-        path="/photo-confirmation-back"
-        element={<PhotoConfirmationBack />}
-      />
-      <Route path="/upload-success" element={<UploadSuccess />} />
-      <Route path="/coinx-details" element={<CoinxDetails />} />
-    </Routes>
+    <>
+      <WagmiConfig config={wagmiConfig}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/document-selection-page"
+            element={<DocumentSelectionPage />}
+          />
+          <Route path="/take-selfie" element={<TakeSelfie />} />
+          <Route path="/front-side" element={<FrontSide />} />
+          <Route path="/selfie-confirmation" element={<SelfieConfirmation />} />
+          <Route path="/back-side" element={<BackSide />} />
+          <Route path="/photo-confirmation" element={<PhotoConfirmation />} />
+          <Route
+            path="/photo-confirmation-back"
+            element={<PhotoConfirmationBack />}
+          />
+          <Route path="/upload-success" element={<UploadSuccess />} />
+          <Route path="/coinx-details" element={<CoinxDetails />} />
+        </Routes>
+      </WagmiConfig>
+
+      <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+    </>
   );
 }
 export default App;

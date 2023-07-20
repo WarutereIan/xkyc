@@ -1,30 +1,18 @@
 import { File, Web3Storage } from "web3.storage";
-import { Blob } from "buffer";
-import * as dotenv from "dotenv";
-dotenv.config();
+import { Blob } from "web3.storage";
 
-const token = process.env.WEB3STORAGE_TOKEN;
+const token = process.env.REACT_APP_WEB3STORAGE_TOKEN;
 
-export const upload = async () => {
-    
-}
-async function main() {
+export const uploadToWeb3 = async (userDetails) => {
   const storageClient = new Web3Storage({ token: token });
 
-  const obj = { hello: "world" };
+  const obj = userDetails;
 
   const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });
 
-  const file = [new File([blob], "hello2.json")];
+  const file = [new File([blob], `${userDetails.CNXID}`)];
 
-  const cid = await storageClient.get(
-    "bafybeigk5mujo4lpdhmraxwsjaopfqfha7gad3sktlrgtxgeffbaw2s53i"
-  );
+  const cid = await storageClient.put(file);
 
-  const unpacked = await cid.files();
-  return unpacked;
-}
-
-main().then((res) => {
-  console.log(res);
-});
+  return cid;
+};

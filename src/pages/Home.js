@@ -1,12 +1,14 @@
 import { Button } from "@mui/material";
 import "./Home.css";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 const Home = () => {
   const navigate = useNavigate();
 
   const onClick = useCallback(() => {
     navigate("/document-selection-page");
+    console.log("opened");
   }, [navigate]);
 
   return (
@@ -51,6 +53,7 @@ const Home = () => {
       >
         Continue
       </Button>
+
       <div className="by-tapping-continue-container">
         <p className="verify-your-identity">
           By tapping Continue, you consent to processing your

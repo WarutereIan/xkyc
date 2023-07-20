@@ -1,36 +1,90 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { EthereumProvider } from "@walletconnect/ethereum-provider";
 import "./CoinxDetails.css";
+import * as ethers from "ethers";
+import XKYC from "../contracts/XKYC.json";
+import { uploadToWeb3 } from "../services/web3StorageUpload";
 
 const CoinxDetails = () => {
   const navigate = useNavigate();
 
+  const [library, setLibrary] = useState();
+  const [account, setAccount] = useState();
+  const [network, setNetwork] = useState();
+
+  const submitDetails = async (kycDetails) => {
+    try {
+      const provider = await EthereumProvider.init({
+        projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID, //turn into process.env key
+        chains: [11155111],
+        showQrModal: true,
+      });
+      await provider.connect();
+
+      const library = new ethers.BrowserProvider(provider);
+      const accounts = await library.listAccounts();
+      const network = await library.getNetwork();
+      const signer = await library.getSigner();
+
+      setLibrary(library);
+      if (accounts) setAccount(accounts[0]);
+      setNetwork(network);
+      //console.log(XKYC.networks);
+      const contract = new ethers.Contract(
+        "0xf5065aDf223e81C3205f8144b9A6360151f10E78",
+        XKYC.abi,
+        signer
+      );
+
+      await contract.submitDetails(
+        kycDetails,
+        { value: ethers.parseEther("0.0001") } //the tx charge
+      );
+    } catch (err) {}
+  };
+
   const emailRef = useRef("");
   const CNXIDRef = useRef("");
 
-  const onBlockstampIDClick = useCallback(() => {
+  const onBlockstampIDClick = useCallback(async () => {
     //TODO: will add logic for connecting to wallet as web3 provider,and then call smart contract, and pay fees
     //navigate("/upload-success");
+    try {
+      const email = emailRef.current.value;
+      const CNXID = CNXIDRef.current.value;
 
-    const email = emailRef.current.value;
-    const CNXID = CNXIDRef.current.value;
+      localStorage.setItem("email", email);
+      localStorage.setItem("CNXID", CNXID);
 
-    console.log(email, CNXID);
-    localStorage.setItem("email", email);
-    localStorage.setItem("CNXID", CNXID);
+      const userDetails = {
+        email: email,
+        CNXID: CNXID,
+        documentType: localStorage.getItem("documentType"),
+        CountryofIssue: localStorage.getItem("countryOfIssue"),
+        DocFrontSide: localStorage.getItem("frontSide"),
+        DocBackSide: localStorage.getItem("backSide"),
+        Selfie: localStorage.getItem("selfie"),
+      };
 
-    const userDetails = {
-      email: email,
-      CNXID: CNXID,
-      documentType: "",
-      CountryofIssue: "",
-      DocFrontSide: localStorage.getItem("frontSide"),
-      DocBackSide: localStorage.getItem("backSide"),
-      Selfie: localStorage.getItem("selfie"),
-    };
+      const cid = await uploadToWeb3(userDetails);
 
-    console.log(userDetails);
-  }, [emailRef]);
+      const kycDetails = {
+        cnxid: userDetails.CNXID,
+        email: userDetails.email,
+        kycDocCID: cid,
+        verificationStatus: "pending",
+      };
+
+      await submitDetails(kycDetails);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [emailRef, CNXIDRef]);
+
+  /* const complete = useCallback(() => {
+    navigate("/upload-success");
+  }, [navigate]); */
 
   return (
     <div className="coinx-details">
