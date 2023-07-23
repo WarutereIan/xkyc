@@ -5,15 +5,8 @@ import {
   useLocation,
 } from "react-router-dom";
 
-import {
-  EthereumClient,
-  w3mConnectors,
-  w3mProvider,
-} from "@web3modal/ethereum";
-import { Web3Modal } from "@web3modal/react";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
-import { arbitrum, mainnet, polygon, sepolia } from "wagmi/chains";
-
+import { ThirdwebProvider, walletConnect } from "@thirdweb-dev/react";
+import { WalletConnect } from "@thirdweb-dev/wallets";
 import Home from "./pages/Home";
 import DocumentSelectionPage from "./pages/DocumentSelectionPage";
 import TakeSelfie from "./pages/TakeSelfie";
@@ -25,26 +18,15 @@ import PhotoConfirmationBack from "./pages/ConfirmBack";
 import UploadSuccess from "./pages/UploadSuccess";
 import CoinxDetails from "./pages/CoinxDetails";
 import { useEffect } from "react";
+import { Mumbai } from "@thirdweb-dev/chains";
 
 function App() {
-  const chains = [arbitrum, mainnet, polygon, sepolia];
-  const projectId = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID;
-  //const { open } = useWeb3Modal();
-
-  const { publicClient } = configureChains(chains, [
-    w3mProvider({ projectId }),
-  ]);
-  const wagmiConfig = createConfig({
-    autoConnect: true,
-    connectors: w3mConnectors({ projectId, chains }),
-    publicClient,
-  });
-
-  const ethereumClient = new EthereumClient(wagmiConfig, chains);
-
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
+  const wallet = new WalletConnect({
+    projectId: "eabd1456ef61718151da9086b613fe8d",
+  });
 
   useEffect(() => {
     if (action !== "POP") {
@@ -113,13 +95,12 @@ function App() {
     }
   }, [pathname]);
 
-  /* useEffect(() => {
-    open();
-  }, []); */
-
   return (
     <>
-      <WagmiConfig config={wagmiConfig}>
+      <ThirdwebProvider
+        activeChain={Mumbai}
+        clientId="a2a23b62a469ca9036353ce915fc7154"
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
@@ -138,9 +119,7 @@ function App() {
           <Route path="/upload-success" element={<UploadSuccess />} />
           <Route path="/coinx-details" element={<CoinxDetails />} />
         </Routes>
-      </WagmiConfig>
-
-      <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+      </ThirdwebProvider>
     </>
   );
 }

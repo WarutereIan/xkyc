@@ -86,10 +86,22 @@ module.exports = {
     sepolia: {
       provider: () =>
         new HDWalletProvider(
-          REACT_APP_MNEMONIC,
+          "absorb visa describe rally farm draw trim fortune marriage gospel leisure bird",
           `wss://eth-sepolia.g.alchemy.com/v2/${REACT_APP_ALCHEMY_PROJECT_ID}`
         ),
       network_id: 11155111, // sepolia's id
+      confirmations: 2, // # of confirmations to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
+    },
+
+    mumbai: {
+      provider: () =>
+        new HDWalletProvider(
+          "absorb visa describe rally farm draw trim fortune marriage gospel leisure bird",
+          `https://polygon-mumbai.g.alchemy.com/v2/9TBeejUSupbtoaJ2DrvLzhWMmDgmpGC6`
+        ),
+      network_id: 80001, // mumbai id
       confirmations: 2, // # of confirmations to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
       skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )

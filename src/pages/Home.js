@@ -2,6 +2,7 @@ import { Button } from "@mui/material";
 import "./Home.css";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ConnectWallet } from "@thirdweb-dev/react";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -53,6 +54,8 @@ const Home = () => {
       >
         Continue
       </Button>
+
+      <ConnectWallet />
 
       <div className="by-tapping-continue-container">
         <p className="verify-your-identity">

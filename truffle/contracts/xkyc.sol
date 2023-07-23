@@ -84,7 +84,7 @@ contract XKYC is Ownable{
         Customers[msg.sender] = details;
         address payable owner = payable(owner());
         owner.transfer(msg.value); //send tx money to owner's wallet
-
+    
 
 
     }

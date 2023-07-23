@@ -1,48 +1,27 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { EthereumProvider } from "@walletconnect/ethereum-provider";
+import { useContract, useContractWrite, Web3Button } from "@thirdweb-dev/react";
 import "./CoinxDetails.css";
-import * as ethers from "ethers";
 import XKYC from "../contracts/XKYC.json";
 import { uploadToWeb3 } from "../services/web3StorageUpload";
 
 const CoinxDetails = () => {
   const navigate = useNavigate();
 
-  const [library, setLibrary] = useState();
-  const [account, setAccount] = useState();
-  const [network, setNetwork] = useState();
+  const [kycDetails, setKycDetails] = useState(null);
 
-  const submitDetails = async (kycDetails) => {
-    try {
-      const provider = await EthereumProvider.init({
-        projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID, //turn into process.env key
-        chains: [11155111],
-        showQrModal: true,
-      });
-      await provider.connect();
+  const contractAddress = "0x19381a41cc576dBd58398cEFc0Ea0913572AF544";
 
-      const library = new ethers.BrowserProvider(provider);
-      const accounts = await library.listAccounts();
-      const network = await library.getNetwork();
-      const signer = await library.getSigner();
+  const { contract } = useContract(
+    "0x19381a41cc576dBd58398cEFc0Ea0913572AF544"
+  );
 
-      setLibrary(library);
-      if (accounts) setAccount(accounts[0]);
-      setNetwork(network);
-      //console.log(XKYC.networks);
-      const contract = new ethers.Contract(
-        "0xf5065aDf223e81C3205f8144b9A6360151f10E78",
-        XKYC.abi,
-        signer
-      );
+  console.log(contract);
 
-      await contract.submitDetails(
-        kycDetails,
-        { value: ethers.parseEther("0.001") } //the tx charge
-      );
-    } catch (err) {}
-  };
+  const { mutateAsync, isLoading, error } = useContractWrite(
+    contract,
+    "submitDetails"
+  );
 
   const emailRef = useRef("");
   const CNXIDRef = useRef("");
@@ -50,39 +29,39 @@ const CoinxDetails = () => {
   const onBlockstampIDClick = useCallback(async () => {
     //TODO: will add logic for connecting to wallet as web3 provider,and then call smart contract, and pay fees
     //navigate("/upload-success");
-    try {
-      const email = emailRef.current.value;
-      const CNXID = CNXIDRef.current.value;
 
-      localStorage.setItem("email", email);
-      localStorage.setItem("CNXID", CNXID);
+    const email = emailRef.current.value;
+    const CNXID = CNXIDRef.current.value;
 
-      const userDetails = {
-        email: email,
-        CNXID: CNXID,
-        documentType: localStorage.getItem("documentType"),
-        CountryofIssue: localStorage.getItem("countryOfIssue"),
-        DocFrontSide: localStorage.getItem("frontSide"),
-        DocBackSide: localStorage.getItem("backSide"),
-        Selfie: localStorage.getItem("selfie"),
-      };
+    localStorage.setItem("email", email);
+    localStorage.setItem("CNXID", CNXID);
 
-      const cid = await uploadToWeb3(userDetails);
+    const userDetails = {
+      email: email,
+      CNXID: CNXID,
+      documentType: localStorage.getItem("documentType"),
+      CountryofIssue: localStorage.getItem("countryOfIssue"),
+      DocFrontSide: localStorage.getItem("frontSide"),
+      DocBackSide: localStorage.getItem("backSide"),
+      Selfie: localStorage.getItem("selfie"),
+    };
 
-      const kycDetails = {
-        cnxid: userDetails.CNXID,
-        email: userDetails.email,
-        kycDocCID: cid,
-        verificationStatus: "pending",
-      };
+    const cid = await uploadToWeb3(userDetails);
 
-      await submitDetails(kycDetails);
+    const kycDetails = {
+      cnxid: CNXID,
+      email: email,
+      kycDocCID: cid,
+      verificationStatus: "pending",
+    };
 
-      navigate("/upload-success");
-    } catch (err) {
-      console.log(err);
-    }
-  }, [emailRef, CNXIDRef, navigate]);
+    setKycDetails(kycDetails);
+    console.log(kycDetails);
+
+    /*  mutateAsync({
+      args: [kycDetails],
+    }); */
+  }, [emailRef, CNXIDRef]);
 
   /* const complete = useCallback(() => {
     navigate("/upload-success");
@@ -111,12 +90,26 @@ const CoinxDetails = () => {
         required={true}
       />
       <div className="you-can-find">{`You can find your CNX-ID in: Settings > Copy ID`}</div>
-      <button className="blockstampid" onClick={onBlockstampIDClick}>
-        <div className="blockstampid-child" />
+      <Web3Button
+        className="blockstampid"
+        contractAddress={contractAddress}
+        contractAbi={XKYC.abi}
+        action={async (contract) => {
+          await onBlockstampIDClick();
+
+          mutateAsync({
+            args: [kycDetails],
+          });
+
+          navigate("/upload-success");
+        }}
+      >
+        {/* <div className="blockstampid-child" />
         <b className="blockstamp-my-anonymous">
           Blockstamp my anonymous NFT-ID
-        </b>
-      </button>
+        </b> */}
+        Continue
+      </Web3Button>
       <div className="important-in-order-container">
         <p className="fill-in-your">{`Important: In order to fulfill the KYC process through `}</p>
         <p className="fill-in-your">{`blockchain BlockStamping, a gas fee is necessary for the `}</p>
