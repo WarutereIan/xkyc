@@ -2,12 +2,23 @@ import { Button } from "@mui/material";
 import "./Home.css";
 import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ConnectWallet } from "@thirdweb-dev/react";
+import { ConnectWallet, useConnect, walletConnect } from "@thirdweb-dev/react";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  const onClick = useCallback(() => {
+  const walletConnectConfig = walletConnect({
+    projectId: "eabd1456ef61718151da9086b613fe8d",
+  });
+
+  const connect = useConnect();
+
+  const handleConnect = async () => {
+    await connect(walletConnectConfig);
+  };
+
+  const onClick = useCallback(async () => {
+    await handleConnect();
     navigate("/document-selection-page");
     console.log("opened");
   }, [navigate]);
@@ -54,8 +65,6 @@ const Home = () => {
       >
         Continue
       </Button>
-
-      <ConnectWallet />
 
       <div className="by-tapping-continue-container">
         <p className="verify-your-identity">

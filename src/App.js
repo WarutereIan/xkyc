@@ -100,6 +100,11 @@ function App() {
       <ThirdwebProvider
         activeChain={Mumbai}
         clientId="a2a23b62a469ca9036353ce915fc7154"
+        supportedWallets={[
+          walletConnect({
+            projectId: "eabd1456ef61718151da9086b613fe8d",
+          }),
+        ]}
       >
         <Routes>
           <Route path="/" element={<Home />} />

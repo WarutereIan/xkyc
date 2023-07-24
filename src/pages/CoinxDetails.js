@@ -8,7 +8,7 @@ import { uploadToWeb3 } from "../services/web3StorageUpload";
 const CoinxDetails = () => {
   const navigate = useNavigate();
 
-  const [kycDetails, setKycDetails] = useState(null);
+  const [KycDetails, setKycDetails] = useState({});
 
   const contractAddress = "0x19381a41cc576dBd58398cEFc0Ea0913572AF544";
 
@@ -48,15 +48,14 @@ const CoinxDetails = () => {
 
     const cid = await uploadToWeb3(userDetails);
 
-    const kycDetails = {
+    let _kycDetails = {
       cnxid: CNXID,
       email: email,
       kycDocCID: cid,
       verificationStatus: "pending",
     };
 
-    setKycDetails(kycDetails);
-    console.log(kycDetails);
+    return _kycDetails;
 
     /*  mutateAsync({
       args: [kycDetails],
@@ -95,13 +94,15 @@ const CoinxDetails = () => {
         contractAddress={contractAddress}
         contractAbi={XKYC.abi}
         action={async (contract) => {
-          await onBlockstampIDClick();
+          onBlockstampIDClick().then((details) => {
+            mutateAsync({
+              args: [details],
+            });
 
-          mutateAsync({
-            args: [kycDetails],
+            navigate("/upload-success");
           });
 
-          navigate("/upload-success");
+          console.log(KycDetails);
         }}
       >
         {/* <div className="blockstampid-child" />
