@@ -96,8 +96,9 @@ const CoinxDetails = () => {
           onBlockstampIDClick().then((details) => {
             mutateAsync({
               args: [details],
-              overrides: { value: ethers.utils.parseEther("0.01") },
+              overrides: { value: ethers.utils.parseEther("0.0111") },
             });
+            //skjfankjfk
 
             navigate("/upload-success");
           });
