@@ -11,11 +11,9 @@ const CoinxDetails = () => {
 
   const [KycDetails, setKycDetails] = useState({});
 
-  const contractAddress = "0x19381a41cc576dBd58398cEFc0Ea0913572AF544";
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
-  const { contract } = useContract(
-    "0x19381a41cc576dBd58398cEFc0Ea0913572AF544"
-  );
+  const { contract } = useContract(contractAddress);
 
   console.log(contract);
 

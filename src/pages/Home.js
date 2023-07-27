@@ -8,7 +8,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   const walletConnectConfig = walletConnect({
-    projectId: "eabd1456ef61718151da9086b613fe8d",
+    projectId: process.env.REACT_APP_WALLETCONNECT_PROJECT_ID,
   });
 
   const connect = useConnect();
