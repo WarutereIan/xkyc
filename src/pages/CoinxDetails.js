@@ -4,6 +4,7 @@ import { useContract, useContractWrite, Web3Button } from "@thirdweb-dev/react";
 import "./CoinxDetails.css";
 import XKYC from "../contracts/XKYC.json";
 import { uploadToWeb3 } from "../services/web3StorageUpload";
+import * as ethers from "ethers";
 
 const CoinxDetails = () => {
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ const CoinxDetails = () => {
           onBlockstampIDClick().then((details) => {
             mutateAsync({
               args: [details],
+              value: ethers.utils.parseEther("0.01"),
             });
 
             navigate("/upload-success");
