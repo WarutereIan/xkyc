@@ -24,8 +24,10 @@ function App() {
   const action = useNavigationType();
   const location = useLocation();
   const pathname = location.pathname;
+  const walletConnectProjectID = process.env.REACT_APP_WALLETCONNECT_PROJECT_ID;
+  const thirdWebClientID = process.env.REACT_APP_THIRDWEB_CLIENT_ID;
   const wallet = new WalletConnect({
-    projectId: "eabd1456ef61718151da9086b613fe8d",
+    projectId: walletConnectProjectID,
   });
 
   useEffect(() => {
@@ -99,10 +101,10 @@ function App() {
     <>
       <ThirdwebProvider
         activeChain={Mumbai}
-        clientId="a2a23b62a469ca9036353ce915fc7154"
+        clientId={thirdWebClientID}
         supportedWallets={[
           walletConnect({
-            projectId: "eabd1456ef61718151da9086b613fe8d",
+            projectId: walletConnectProjectID,
           }),
         ]}
       >

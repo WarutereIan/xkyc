@@ -33,6 +33,8 @@ contract XKYC is Ownable{
     //chainlink pricefeed to check BNB price
     AggregatorV3Interface internal priceFeed;
 
+    event detailsSubmitted(address customer, string kycDocCID, string cnxid);
+
     /**
      * Modifier to limit access to only the admin: 
      * @ONLYOWNER 
@@ -79,13 +81,17 @@ contract XKYC is Ownable{
     function submitDetails(Customer memory details) public payable returns (bool){
         //will charge a fee of about 1.56USD in total, inclusive of gas
         //set gas limit = 0.29USD
-        //fetch live price from chainlink, calculate using that price 
+        //fetch live price from chainlink, calculate using that price
+        require(msg.value> 0.01 ether, "Function called with insufficient funds transferred" );
         details.verificationStatus = 'Unverified';
         Customers[msg.sender] = details;
         address payable owner = payable(owner());
-        owner.transfer(msg.value); //send tx money to owner's wallet
-    
+      //send tx money to owner's wallet
 
-
+      (bool sent, bytes memory data) = owner.call{value:msg.value}("");
+        require(sent, "Could not transfer funds");
+       
+        emit detailsSubmitted(msg.sender, details.kycDocCID, details.cnxid);
+        return true;
     }
 }
