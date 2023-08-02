@@ -13,7 +13,7 @@ const CoinxDetails = () => {
 
   //const contractAddress = "0xDF9826F83BF6848bd82BEB307b03379253bfaBDE";
 
-  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
   const { contract } = useContract(contractAddress, XKYC.abi);
 
@@ -99,7 +99,7 @@ const CoinxDetails = () => {
           onBlockstampIDClick().then((details) => {
             mutateAsync({
               args: [details],
-              overrides: { value: ethers.utils.parseEther("0.0111") },
+              overrides: { value: ethers.utils.parseEther("0.0041") },
             });
             //skjfankjfk
 
