@@ -13,9 +13,9 @@ const CoinxDetails = () => {
 
   //const contractAddress = "0xDF9826F83BF6848bd82BEB307b03379253bfaBDE";
 
-  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS
 
-  const { contract } = useContract(contractAddress);
+  const { contract } = useContract(contractAddress, XKYC.abi);
 
   console.log(contract);
 

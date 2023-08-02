@@ -100,7 +100,7 @@ function App() {
   return (
     <>
       <ThirdwebProvider
-        activeChain="mumbai"
+        activeChain={process.env.REACT_APP_ACTIVE_CHAIN}
         clientId={thirdWebClientID}
         supportedWallets={[
           walletConnect({
