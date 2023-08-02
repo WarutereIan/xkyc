@@ -18,7 +18,7 @@ import PhotoConfirmationBack from "./pages/ConfirmBack";
 import UploadSuccess from "./pages/UploadSuccess";
 import CoinxDetails from "./pages/CoinxDetails";
 import { useEffect } from "react";
-import { Mumbai } from "@thirdweb-dev/chains";
+import { Mumbai, Binance } from "@thirdweb-dev/chains";
 
 function App() {
   const action = useNavigationType();
@@ -100,7 +100,7 @@ function App() {
   return (
     <>
       <ThirdwebProvider
-        activeChain={Mumbai}
+        activeChain={process.env.REACT_APP_ACTIVE_CHAIN} //process.env.REACT_APP_ACTIVE_CHAIN}
         clientId={thirdWebClientID}
         supportedWallets={[
           walletConnect({

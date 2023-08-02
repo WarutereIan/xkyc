@@ -11,7 +11,9 @@ const CoinxDetails = () => {
 
   const [KycDetails, setKycDetails] = useState({});
 
-  const contractAddress = "0x785c5dD201a44b5C16c4636b293fDb43386fCaA5";
+  //const contractAddress = "0xDF9826F83BF6848bd82BEB307b03379253bfaBDE";
+
+  const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
 
   const { contract } = useContract(contractAddress);
 
@@ -52,6 +54,7 @@ const CoinxDetails = () => {
       email: email,
       kycDocCID: cid,
       verificationStatus: "pending",
+      isInitialized: true,
     };
 
     return _kycDetails;
