@@ -1,9 +1,9 @@
 .camliveview-icon {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 390px;
-  height: 844px;
+  height: 670px;
   object-fit: cover;
   cursor: pointer;
 }
@@ -19,12 +19,12 @@
 .take-a-photo1 {
   position: absolute;
   top: 686px;
-  left: 117px;
+  left: 155px;
   line-height: 30px;
 }
 .take-a-photo1 {
   top: 723px;
-  left: 44.51px;
+  left: 130px;
   font-size: 13px;
   line-height: 16px;
   font-weight: 500;

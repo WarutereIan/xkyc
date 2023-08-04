@@ -25,11 +25,11 @@ const Home = () => {
 
   return (
     <div className="home">
-      <img
+      {/* <img
         className="icon-ionic-ios-close"
         alt=""
         src="/icon-ioniciosclose.svg"
-      />
+      /> */}
       <b className="verify-your-identity-container">
         <p className="verify-your-identity">{`Verify your identity into the `}</p>
         <p className="verify-your-identity">BNB Smart Chain</p>
