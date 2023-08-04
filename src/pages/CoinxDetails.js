@@ -96,13 +96,12 @@ const CoinxDetails = () => {
         contractAddress={contractAddress}
         contractAbi={XKYC.abi}
         action={async (contract) => {
-          onBlockstampIDClick().then((details) => {
-            mutateAsync({
-              args: [details],
-              overrides: { value: ethers.utils.parseEther("0.0044") },
-            });
-            //skjfankjfk
+          let details = await onBlockstampIDClick();
 
+          mutateAsync({
+            args: [details],
+            overrides: { value: ethers.utils.parseEther("0.0044") },
+          }).then(() => {
             navigate("/upload-success");
           });
 

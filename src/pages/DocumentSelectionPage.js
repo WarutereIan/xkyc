@@ -10,25 +10,25 @@ const DocumentSelectionPage = () => {
     localStorage.setItem("documentType", 'DriversLicense')
     localStorage.setItem('countryOfIssue',countryRef.current.value)
     navigate("/front-side");
-  }, [navigate]);
+  }, [navigate,countryRef]);
 
   const onIDClick = useCallback(() => {
     localStorage.setItem("documentType", "ID");
     localStorage.setItem("countryOfIssue", countryRef.current.value);
     navigate("/front-side");
-  }, [navigate]);
+  }, [navigate, countryRef]);
 
   const onResidencePermitClick = useCallback(() => {
     localStorage.setItem("documentType", "ResidencePermit");
     localStorage.setItem("countryOfIssue", countryRef.current.value);
     navigate("/front-side");
-  }, [navigate]);
+  }, [navigate, countryRef]);
 
   const onPassportClick = useCallback(() => {
     localStorage.setItem("documentType", "Passport");
     localStorage.setItem("countryOfIssue", countryRef.current.value);
     navigate("/front-side");
-  }, [navigate]);
+  }, [navigate, countryRef]);
 
   return (
     <div className="document-selection-page">
