@@ -32,11 +32,11 @@ const DocumentSelectionPage = () => {
 
   return (
     <div className="document-selection-page">
-      <img
+      {/* <img
         className="icon-ionic-ios-close1"
         alt=""
         src="/icon-ioniciosclose.svg"
-      />
+      /> */}
       <b className="select-the-country-container">
         <p className="select-the-country">Select the country where your ID</p>
         <p className="select-the-country">document was issued</p>
