@@ -3,24 +3,26 @@
 }
 .verify-your-identity-container {
   position: absolute;
-  top: 43px;
-  left: 47.82px;
+  top: 5px;
+  left: 12%;
   font-size: 20px;
   line-height: 30px;
   color: #333d4b;
+  align-items: center;
 }
 .it-will-only {
   position: absolute;
-  top: 130px;
-  left: 97.85px;
+  top: 16.25%;
+  left: 25%;
   font-size: 15px;
   line-height: 23px;
   font-weight: 500;
+  align-items: center;
 }
 .home-child {
   position: absolute;
-  top: 176px;
-  left: 17px;
+  top: 22%;
+  left: 4.36%;
   border-radius: 10px;
   background-color: #f6f7f9;
   width: 356px;
@@ -28,30 +30,30 @@
 }
 .icon-awesome-id-card {
   position: absolute;
-  top: 192.25px;
-  left: 32.65px;
+  top: 24%;
+  left: 8.37%;
   width: 16.08px;
   height: 12.5px;
 }
 .identity-documentation {
   position: absolute;
-  top: 182px;
-  left: 63.84px;
+  top: 22.75%;
+  left: 16.37%;
   line-height: 30px;
   color: #333d4b;
 }
 .take-a-photo {
   position: absolute;
-  top: 208px;
-  left: 64.77px;
+  top: 26%;
+  left: 16.6%;
   font-size: 13px;
   line-height: 23px;
   font-weight: 500;
 }
 .home-item {
   position: absolute;
-  top: 253px;
-  left: 17px;
+  top: 31.625%;
+  left: 4.36%;
   border-radius: 10px;
   background-color: #f6f7f9;
   width: 356px;
@@ -59,32 +61,33 @@
 }
 .icon-awesome-id-card1 {
   position: absolute;
-  top: 269.25px;
-  left: 32.65px;
+  top: 33.656%;
+  left: 8.37%;
   width: 16.08px;
   height: 12.5px;
 }
 .profile-details {
   position: absolute;
-  top: 259px;
-  left: 64px;
+  top: 32.375%;
+  left: 16.41%;
   line-height: 30px;
   color: #333d4b;
   text-align: left;
 }
 .verify-and-complete-container {
   position: absolute;
-  top: 287px;
-  left: 65px;
+  top: 35.875%;
+  left: 16.67%;
+
   font-size: 13px;
   line-height: 18px;
   font-weight: 500;
-  text-align: left;
+  text-align: center;
 }
 .continue {
   position: absolute;
-  top: 620px;
-  left: 17px;
+  top: 77.5%;
+  left: 4.36%;
 }
 .personal-data {
   color: #4b90c4;
@@ -96,28 +99,28 @@
 .by-tapping-continue-container,
 .powered-by-cnx {
   position: absolute;
-  top: 550px;
-  left: 37.38px;
+  top: 68.75%;
+  left: 9.58%;
   font-size: 11px;
   line-height: 16px;
   font-weight: 500;
 }
 .powered-by-cnx {
-  top: 680px;
-  left: 148.3px;
+  top: 85%;
+  left: 38%;
 }
 .home {
   position: absolute;
   background-color: #fff;
-  width: 100%;
-  height: 800px;
-  overflow: hidden;
+  width: 100dvw;
+  height: 100dvh;
+  overflow: visible;
   text-align: center;
   font-size: 16px;
   color: #686d8f;
   font-family: Montserrat;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1080px) {
   .home {
     border-radius: 0;
   }
